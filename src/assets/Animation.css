@@ -1,0 +1,86 @@
+.App-gear {
+    margin: auto;
+    width: 30%;
+    text-align: center;
+    align-items: center;
+    display: block;
+    padding: 25px 25px;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-gear {
+      animation: App-gear-spin infinite 5s linear;
+    }
+  }
+
+  .Text-gear {
+    margin: auto;
+    height: 20vmin;
+    text-align: center;
+    padding: 25px 25px;
+    pointer-events: none;
+  }
+ .Text-gear:before {
+  content: "cool.";
+  animation: Text-gear-change 5s infinite 0s;
+}
+  
+  @keyframes App-gear-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes Text-gear-change {
+    from { content: "0 units"}
+    to { content: "360 units"}
+  }
+  
+
+
+  .App-linear {
+    margin: auto;
+    width: 30%;
+    text-align: center;
+    align-items: center;
+    display: block;
+    padding: 25px 25px;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-linear {
+      animation: App-linear-move infinite 5s linear;
+    }
+  }
+
+  .Text-linear {
+    margin: auto;
+    height: 20vmin;
+    text-align: center;
+    padding: 25px 25px;
+    pointer-events: none;
+  }
+ .Text-linear:before {
+  content: "cool.";
+  animation: Text-linear-change 5s infinite 0s;
+}
+  
+  @keyframes App-linear-move {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes Text-linear-change {
+    from { content: "0 units"}
+    to { content: "360 units"}
+  }
+  
