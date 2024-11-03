@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/MarcoNucci/cam-visualizer/static/css/main.15641e19.css",
+    "main.js": "/MarcoNucci/cam-visualizer/static/js/main.2aa6c585.js",
+    "static/js/787.7e03cabd.chunk.js": "/MarcoNucci/cam-visualizer/static/js/787.7e03cabd.chunk.js",
+    "static/media/Gear.svg": "/MarcoNucci/cam-visualizer/static/media/Gear.c77d4c9139ed6efab7d4bd0701255d34.svg",
+    "index.html": "/MarcoNucci/cam-visualizer/index.html",
+    "main.15641e19.css.map": "/MarcoNucci/cam-visualizer/static/css/main.15641e19.css.map",
+    "main.2aa6c585.js.map": "/MarcoNucci/cam-visualizer/static/js/main.2aa6c585.js.map",
+    "787.7e03cabd.chunk.js.map": "/MarcoNucci/cam-visualizer/static/js/787.7e03cabd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.15641e19.css",
+    "static/js/main.2aa6c585.js"
+  ]
+}
