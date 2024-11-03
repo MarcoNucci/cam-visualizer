@@ -18,8 +18,8 @@ const Animation2D = () => {
   return (
     <div>
     <div className='centered'>
-        <button className={(selectedTab == 1) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(1)}>Rotative</button>
-        <button className={(selectedTab == 2) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(2)}>Linear</button>
+        <button className={(selectedTab == 1) ? "SelectedButtonSmall":"UnselectedButtonSmall"} onClick={() => setSelectedTab(1)}>Rotative</button>
+        <button className={(selectedTab == 2) ? "SelectedButtonSmall":"UnselectedButtonSmall"} onClick={() => setSelectedTab(2)}>Linear</button>
     </div>
     
     <div className='centered'>

@@ -12,7 +12,8 @@ const CamResults = (props) => {
     {
         const Anim1 = findAnimByName(nameAnimation);
         const Anim2 = findAnimByName(nameTextAnimation);
-        Anim2.startTime = Anim1.startTime;
+        if (Anim1 !== undefined && Anim2 !== undefined)
+            Anim2.startTime = Anim1.startTime;
     }
     
     function findAnimByName(name) 

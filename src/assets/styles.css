@@ -11,7 +11,7 @@ body {
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
@@ -292,6 +292,42 @@ h3.errormessage {
   transition: padding 0.1s ease-in-out;
 }
 
+.SelectedButtonSmall {
+  background-color: rgb(0, 155, 60);
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 5px;
+  text-align: center; 
+  align-items: center;
+  transition: background-color 0.3s ease-in-out;
+  transition: padding 0.1s ease-in-out;
+}
+.UnselectedButtonSmall:hover {
+  background-color: rgb(66, 118, 77);
+}
+
+.UnselectedButtonSmall {
+  background-color: rgb(71, 71, 71);
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 5px;
+  text-align: center; 
+  align-items: center;
+  transition: background-color 0.3s ease-in-out;
+  transition: padding 0.1s ease-in-out;
+}
 
 .add-form {
   margin-bottom: 40px;
