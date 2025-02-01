@@ -1,0 +1,78 @@
+.mechanics-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 10px; /* Reduced margin */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-group label {
+    margin-right: 10px; /* Space between label and input */
+    font-weight: bold;
+}
+
+.form-control {
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.form-control[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.form-control[type="number"]::-webkit-outer-spin-button,
+.form-control[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.inline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control select {
+    width: auto; /* Adjust width to fit content */
+}
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-unit .form-control {
+    width: auto; /* Adjust width to fit content */
+}
+
+.input-with-unit .unit {
+    margin-left: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.result-text {
+    margin-top: 20px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}

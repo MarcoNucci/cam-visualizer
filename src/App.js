@@ -1,9 +1,8 @@
 import {useState} from 'react'
 import CamPointsView from './components/CamPointsView'
 import CamResults from './components/CamResults'
-import TabNavbar from './components/TabNavbar'
+import useMechanicsState from './state/MechanicsState'
 import {computeCamSegmentParameters, computeCamPosition, computeCamVelocity, computeCamAcceleration, solveZeroVelocity} from './functions/CamComputation'
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import {createAnimation} from './functions/Animation'
 import nextId from "react-id-generator"
 
@@ -50,6 +49,10 @@ function App() {
   // ** Step for Graph
   const [numberOfSteps, setnumberOfSteps] = useState([1000])
   const [step, setStep] = useState([0.1])
+  const [camData, setCamData] = useState([])
+
+  // ** Mechanics State
+  const mechanicsState = useMechanicsState();
 
   const computeCamParameters = () => {
     let newCamParameters = []
@@ -69,6 +72,10 @@ function App() {
     var posData = [["Master Position", "Position"]]
     var velData = [["Master Position", "Velocity"]]
     var accData = [["Master Position", "Acceleration"]]
+    var localCamMasterPositions=[];
+    var localCamSlavePositions=[];
+    var localCamSlaveVelocities=[];
+    var localCamSlaveAccelerations=[];
     var data = [
       ["Master Position", "Position", "Velocity", "Acceleration"]]
       for (let i = 0; i < camParameters.length; i++)
@@ -80,10 +87,19 @@ function App() {
           posData.push([x, computeCamPosition(x, camParameters[i])]);
           velData.push([x, computeCamVelocity(x, camParameters[i])]);
           accData.push([x, computeCamAcceleration(x, camParameters[i])]);
-        }
-      }
-      console.log(posData);
+          localCamMasterPositions = [...localCamMasterPositions,x]
+          localCamSlavePositions = [...localCamSlavePositions,computeCamPosition(x, camParameters[i])]
+          localCamSlaveVelocities = [...localCamSlaveVelocities,computeCamVelocity(x, camParameters[i])]
+          localCamSlaveAccelerations = [...localCamSlaveAccelerations,computeCamAcceleration(x, camParameters[i])]
+          }
+      };
       setGraphData([posData, velData, accData]);
+      setCamData(
+        {'x':localCamMasterPositions,
+          'y':localCamSlavePositions,
+          'v':localCamSlaveVelocities,
+          'a':localCamSlaveAccelerations
+        })
       createAnimation(posData,numberOfSteps);
   }
 
@@ -114,7 +130,7 @@ function App() {
     <div className="App">
       <CamPointsView camPoints = {camPoints} setCamPoints = {setCamPoints} ComputeCam = {ComputeCam}/>
       <CamResults isComputeRequested = {isComputeRequested} computeErrorMessage = {computeErrorMessage} 
-          graphData = {graphData} camPoints = {camPoints} camParameters = {camParameters}/>    
+          graphData = {graphData} camData = {camData} camPoints = {camPoints} camParameters = {camParameters} mechanicsState={mechanicsState} />    
     </div>
   );
 }

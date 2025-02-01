@@ -2,6 +2,7 @@ import { useState } from 'react'
 import CamChart from './CamChart'
 import Animation2D from './Animation2D'
 import Animation3D from './Animation3D'
+import Mechanics from './Mechanics'
 
 
 
@@ -33,12 +34,14 @@ const CamResults = (props) => {
                 <h1>Results</h1>
                 <div className='centered'>
                     <button className={(selectedTab == 1) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(1)}>Cam Graph</button>
-                    <button className={(selectedTab == 2) ? "SelectedButton":"UnselectedButton"} onClick={() => {setSelectedTab(2); sync2DAnimations()}}>2D Animation</button>
-                    <button className={(selectedTab == 3) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(3)}>3D Animation</button>
+                    <button className={(selectedTab == 2) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(2)}>Mechanics</button>
+                    <button className={(selectedTab == 3) ? "SelectedButton":"UnselectedButton"} onClick={() => {setSelectedTab(3); sync2DAnimations()}}>2D Animation</button>
+                    <button className={(selectedTab == 4) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(4)}>3D Animation</button>
                 </div>
                 {(selectedTab == 1) ? <CamChart graphData = {props.graphData} step = {props.step}/> : <></>}
-                {(selectedTab == 2) ? <Animation2D/> : <></>}
-                {(selectedTab == 3) ? <Animation3D camPoints = {props.camPoints} camParameters = {props.camParameters}/> : <></>}
+                {(selectedTab == 2) ? <Mechanics mechanicsState={props.mechanicsState} camData={props.camData} /> : <></>}
+                {(selectedTab == 3) ? <Animation2D/> : <></>}
+                {(selectedTab == 4) ? <Animation3D camPoints = {props.camPoints} camParameters = {props.camParameters}/> : <></>}
             </div>
             </>
             );
