@@ -10,7 +10,7 @@ const useMechanicsState = () => {
     const [loadInertia, setLoadInertia] = useState(1.0);
     const [loadMass, setLoadMass] = useState(1.0);
     const [linearDevelopment, setLinearDevelopment] = useState(20);
-    const [selectedValue, setSelectedValue] = useState('False');
+    const [isVertical, setIsVertical] = useState('False');
     const [masterSetpointVelocity, setMasterSetpointVelocity] = useState(360);
 
     return {
@@ -23,7 +23,7 @@ const useMechanicsState = () => {
         loadInertia, setLoadInertia,
         loadMass, setLoadMass,
         linearDevelopment, setLinearDevelopment,
-        selectedValue, setSelectedValue,
+        isVertical, setIsVertical,
         masterSetpointVelocity, setMasterSetpointVelocity
     };
 };

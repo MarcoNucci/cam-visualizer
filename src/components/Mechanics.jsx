@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// import ReportGenerator from './ReportGeneration';
 import '../assets/Mechanics.css'; // Import the CSS file for styling
 
 const Mechanics = ({ mechanicsState, camData }) => {
@@ -12,7 +13,7 @@ const Mechanics = ({ mechanicsState, camData }) => {
         loadInertia, setLoadInertia,
         loadMass, setLoadMass,
         linearDevelopment, setLinearDevelopment,
-        selectedValue, setSelectedValue,
+        isVertical , setIsVertical,
         masterSetpointVelocity, setMasterSetpointVelocity
     } = mechanicsState;
 
@@ -31,6 +32,7 @@ const Mechanics = ({ mechanicsState, camData }) => {
         text += `Max Velocity: ${maxVelocity.toFixed(2)} ${unitOfMeasure}/s<br />`;
         text += `Mean Acceleration: ${meanAcceleration.toFixed(2)} ${unitOfMeasure}/s²<br />`;
         text += `Max Acceleration: ${maxAcceleration.toFixed(2)} ${unitOfMeasure}/s²<br />`;
+        text += `<br />`;
 
         let totalInertia = 0
         let rmsTorque = 0
@@ -96,7 +98,7 @@ const Mechanics = ({ mechanicsState, camData }) => {
 
     useEffect(() => {
         updateResultText();
-    }, [actuationType, movementType, unitOfMeasure, gearRatio, motorInertia, motorMass, loadInertia, loadMass, linearDevelopment, selectedValue, masterSetpointVelocity]);
+    }, [actuationType, movementType, unitOfMeasure, gearRatio, motorInertia, motorMass, loadInertia, loadMass, linearDevelopment, isVertical, masterSetpointVelocity]);
 
     const handleActuationTypeChange = (e) => {
         setActuationType(e.target.value);
@@ -115,8 +117,8 @@ const Mechanics = ({ mechanicsState, camData }) => {
         setUnitOfMeasure(e.target.value);
     };
 
-    const handleSelectedValueChange = (e) => {
-        setSelectedValue(e.target.value);
+    const handleIsVerticalChange = (e) => {
+        setIsVertical(e.target.value);
     };
 
     const handleMasterSetpointVelocityChange = (e) => {
@@ -223,10 +225,10 @@ const Mechanics = ({ mechanicsState, camData }) => {
                 </div>
             )}
 
-            {actuationType === 'Linear' && (
+            {movementType === 'Linear' && (
                 <div className="form-group inline">
-                    <label>Selected Value</label>
-                    <select value={selectedValue} onChange={handleSelectedValueChange} className="form-control">
+                    <label>Vertical Movement</label>
+                    <select value={isVertical} onChange={handleIsVerticalChange} className="form-control">
                         <option value="False">False</option>
                         <option value="True">True</option>
                     </select>
