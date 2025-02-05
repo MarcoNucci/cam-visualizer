@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { saveAs } from "file-saver";
-import { loadPyodide } from "pyodide";
 import { jsPDF } from "jspdf";
 
-function PdfGenerator() {
+function ReportGenerator() {
     const [pyodide, setPyodide] = useState(null);
 
     useEffect(() => {
         async function initPyodide() {
-            const pyodideInstance = await loadPyodide();
+            const pyodideInstance = await window.loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/"
+            });
             await pyodideInstance.loadPackage(["matplotlib"]);
             setPyodide(pyodideInstance);
         }
@@ -50,4 +50,4 @@ function PdfGenerator() {
     );
 }
 
-export default PdfGenerator;
+export default ReportGenerator;

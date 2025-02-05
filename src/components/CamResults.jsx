@@ -39,7 +39,7 @@ const CamResults = (props) => {
                     <button className={(selectedTab == 4) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(4)}>3D Animation</button>
                 </div>
                 {(selectedTab == 1) ? <CamChart graphData = {props.graphData} step = {props.step}/> : <></>}
-                {(selectedTab == 2) ? <Mechanics mechanicsState={props.mechanicsState} camData={props.camData} /> : <></>}
+                {(selectedTab == 2) ? <Mechanics graphData = {props.graphData} mechanicsState={props.mechanicsState} camData={props.camData} /> : <></>}
                 {(selectedTab == 3) ? <Animation2D/> : <></>}
                 {(selectedTab == 4) ? <Animation3D camPoints = {props.camPoints} camParameters = {props.camParameters}/> : <></>}
             </div>

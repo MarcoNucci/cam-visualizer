@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import ReportGenerator from './ReportGeneration';
+import ReportGenerator from './ReportGeneration';
 import '../assets/Mechanics.css'; // Import the CSS file for styling
 
-const Mechanics = ({ mechanicsState, camData }) => {
+const Mechanics = ({ mechanicsState, camData, graphData }) => {
     const {
         actuationType, setActuationType,
         movementType, setMovementType,
@@ -238,6 +238,7 @@ const Mechanics = ({ mechanicsState, camData }) => {
             <div className="result-text">
                 <p dangerouslySetInnerHTML={{ __html: resultText }}></p>
             </div>
+            <ReportGenerator graphData = {graphData} />
         </div>
     );
 };
