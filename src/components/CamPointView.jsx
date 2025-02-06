@@ -31,6 +31,7 @@ const CamPointView = (props) => {
             A: <input type="number" defaultValue={props.point.a} onChange={event => props.onChange(event,"number", "a", props.index)}></input>  
             Type: <select defaultValue={props.point.type} onChange={event => props.onChange(event,"select", "type", props.index)} >
                 <option>Straight</option>
+                <option>Poly3</option>
                 <option>Poly5</option>
             </select></h4>
         </div>);

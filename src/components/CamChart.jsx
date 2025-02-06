@@ -1,5 +1,6 @@
 import React from 'react';
 import {Chart} from "react-google-charts";
+import CreateCsv from './CreateCsv';
 
 export const data = [
   ["Master Position", "Position", "Velocity", "Acceleration"],
@@ -44,7 +45,7 @@ export const options = [{
 
 }];
 
-const CamChart = ({graphData, step}) => {
+const CamChart = ({graphData, camData, step}) => {
 
 
   return (
@@ -67,6 +68,7 @@ const CamChart = ({graphData, step}) => {
           height="400px"
           data={graphData[2]}
           options={options[2]}/>
+        <CreateCsv camData={camData} />
     </div>
   );
 };

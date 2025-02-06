@@ -55,7 +55,8 @@ export const createAnimation = (posData, numPoints) => {
     let stylesText = "";
     let length = posData[posData.length - 1][0] - posData[1][0];
 
-    stylesRot += `0% { transform: rotate(${posData[0][1].toFixed(2)}deg); }\n`;
+    // stylesRot += `0% { transform: rotate(${posData[0][1].toFixed(2)}deg); }\n`;
+    stylesRot += `0% { transform: rotate(0deg); }\n`;
     for (let i = 1; i <= numPoints; i++) {
         let index = Math.floor(i * posData.length / numPoints);
         if (index < 1) index = 1;

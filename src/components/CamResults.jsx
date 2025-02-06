@@ -38,7 +38,7 @@ const CamResults = (props) => {
                     <button className={(selectedTab == 3) ? "SelectedButton":"UnselectedButton"} onClick={() => {setSelectedTab(3); sync2DAnimations()}}>2D Animation</button>
                     <button className={(selectedTab == 4) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(4)}>3D Animation</button>
                 </div>
-                {(selectedTab == 1) ? <CamChart graphData = {props.graphData} step = {props.step}/> : <></>}
+                {(selectedTab == 1) ? <CamChart graphData = {props.graphData} camData={props.camData} step = {props.step}/> : <></>}
                 {(selectedTab == 2) ? <Mechanics graphData = {props.graphData} mechanicsState={props.mechanicsState} camData={props.camData} /> : <></>}
                 {(selectedTab == 3) ? <Animation2D/> : <></>}
                 {(selectedTab == 4) ? <Animation3D camPoints = {props.camPoints} camParameters = {props.camParameters}/> : <></>}

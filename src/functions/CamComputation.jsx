@@ -14,7 +14,38 @@ export const computeCamSegmentParameters = (point1, point2) => {
     {
       return [(x2 * y1 - x1*y2)/(x2 - x1) ,(y2 - y1)/(x2 - x1),0,0,0,0]
     }
+    if (point2.type == "Poly3")
+    {
+      var matrix =           [[(x2*x2*(3*x1-x2))                     /(Math.pow(x1-x2,3)),
+                  (-x1*x2*x2)                                    /(Math.pow(x1-x2,2)),
+                  (x1*x1*(x1-3*x2))                               /(Math.pow(x1-x2,3)),
+                  (-x1*x1*x2)                                    /(Math.pow(x1-x2,2)),],
+                  [(-6*x1*x2)                                   /(Math.pow(x1-x2,3)),
+                  (x2*(2*x1+x2))                                 /(Math.pow(x1-x2,2)),
+                  (6*x1*x2)                                   /(Math.pow(x1-x2,3)),
+                  (x1*(x1+2*x2))                                   /(Math.pow(x1-x2,2))],
+                  [(3*(x1+x2))                                   /(Math.pow(x1-x2,3)),
+                  (-(x1+2*x2))                                   /(Math.pow(x1-x2,2)),
+                  (-3*(x1+x2))                                   /(Math.pow(x1-x2,3)),
+                  (-(2*x1+x2))                                   /(Math.pow(x1-x2,2))],
+                  [(-2)                                   /(Math.pow(x1-x2,3)),
+                  (1)                                   /(Math.pow(x1-x2,2)),
+                  (2)                                   /(Math.pow(x1-x2,3)),
+                  (1)                                   /(Math.pow(x1-x2,2)),
+                  ]];
+                
+      var vector = [y1, v1, y2, v2, 0, 0]
 
+      var result = [0,0,0,0,0,0];
+      for (var i=0; i<4; i++)
+      {
+        for (var j=0; j<4;j++)
+        {
+          result[i] += matrix[i][j]*vector[j];
+        }
+      }
+      return result;
+    }
     if (point2.type == "Poly5")
     {
       var matrix = [[(Math.pow(x2,3)*(10*Math.pow(x1,2)-5*x2*x1+Math.pow(x2,2)))   	/(Math.pow(x2-x1,5)),
@@ -69,11 +100,6 @@ export const computeCamSegmentParameters = (point1, point2) => {
           result[i] += matrix[i][j]*vector[j];
         }
       }
-      // console.log(point1);
-      // console.log(point2);
-      // console.log(vector);
-      // console.log(matrix);
-      // console.log(result);
       return result;
     }
   }
@@ -179,8 +205,8 @@ export const computePosition = (x, camPoints, camParameters) =>
 //   else if (h <= 0)
 //   {
 //     let j = Math.sqrt(-f)
-//     let k = math.acos(-0.5*g / (j*j*j))
-//     let m = math.cos(third*k)
+//     let k = Math.acos(-0.5*g / (j*j*j))
+//     let m = Math.cos(third*k)
 //     return 2*j*m - a13
 //   }
 //   else

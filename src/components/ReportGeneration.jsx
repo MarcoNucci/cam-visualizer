@@ -45,7 +45,7 @@ function ReportGenerator() {
 
     return (
         <div>
-            <button onClick={generatePdf}>Generate PDF</button>
+            <button onClick={generatePdf} className="ComputeButton" >Generate PDF</button>
         </div>
     );
 }
