@@ -1,16 +1,22 @@
 {
   "files": {
-    "main.css": "/cam-visualizer/static/css/main.15641e19.css",
-    "main.js": "/cam-visualizer/static/js/main.c1f562fb.js",
+    "main.css": "/cam-visualizer/static/css/main.3b24f1b4.css",
+    "main.js": "/cam-visualizer/static/js/main.8216bd49.js",
+    "static/js/498.ab80c004.chunk.js": "/cam-visualizer/static/js/498.ab80c004.chunk.js",
+    "static/js/703.8197001c.chunk.js": "/cam-visualizer/static/js/703.8197001c.chunk.js",
+    "static/js/513.a1bb234d.chunk.js": "/cam-visualizer/static/js/513.a1bb234d.chunk.js",
     "static/js/787.7e03cabd.chunk.js": "/cam-visualizer/static/js/787.7e03cabd.chunk.js",
     "static/media/Gear.svg": "/cam-visualizer/static/media/Gear.c77d4c9139ed6efab7d4bd0701255d34.svg",
     "index.html": "/cam-visualizer/index.html",
-    "main.15641e19.css.map": "/cam-visualizer/static/css/main.15641e19.css.map",
-    "main.c1f562fb.js.map": "/cam-visualizer/static/js/main.c1f562fb.js.map",
+    "main.3b24f1b4.css.map": "/cam-visualizer/static/css/main.3b24f1b4.css.map",
+    "main.8216bd49.js.map": "/cam-visualizer/static/js/main.8216bd49.js.map",
+    "498.ab80c004.chunk.js.map": "/cam-visualizer/static/js/498.ab80c004.chunk.js.map",
+    "703.8197001c.chunk.js.map": "/cam-visualizer/static/js/703.8197001c.chunk.js.map",
+    "513.a1bb234d.chunk.js.map": "/cam-visualizer/static/js/513.a1bb234d.chunk.js.map",
     "787.7e03cabd.chunk.js.map": "/cam-visualizer/static/js/787.7e03cabd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.15641e19.css",
-    "static/js/main.c1f562fb.js"
+    "static/css/main.3b24f1b4.css",
+    "static/js/main.8216bd49.js"
   ]
 }
