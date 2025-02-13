@@ -3,6 +3,7 @@ import CamChart from './CamChart'
 import Animation2D from './Animation2D'
 import Animation3D from './Animation3D'
 import Mechanics from './Mechanics'
+import CodeGeneration from './CodeGeneration'
 
 
 
@@ -37,11 +38,13 @@ const CamResults = (props) => {
                     <button className={(selectedTab == 2) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(2)}>Mechanics</button>
                     <button className={(selectedTab == 3) ? "SelectedButton":"UnselectedButton"} onClick={() => {setSelectedTab(3); sync2DAnimations()}}>2D Animation</button>
                     <button className={(selectedTab == 4) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(4)}>3D Animation</button>
+                    <button className={(selectedTab == 5) ? "SelectedButton":"UnselectedButton"} onClick={() => setSelectedTab(5)}>Code Generation</button>
                 </div>
                 {(selectedTab == 1) ? <CamChart graphData = {props.graphData} camData={props.camData} step = {props.step}/> : <></>}
                 {(selectedTab == 2) ? <Mechanics graphData = {props.graphData} mechanicsState={props.mechanicsState} camData={props.camData} /> : <></>}
                 {(selectedTab == 3) ? <Animation2D/> : <></>}
                 {(selectedTab == 4) ? <Animation3D camPoints = {props.camPoints} camParameters = {props.camParameters}/> : <></>}
+                {(selectedTab == 5) ? <CodeGeneration camPoints = {props.camPoints}/> : <></>}
             </div>
             </>
             );

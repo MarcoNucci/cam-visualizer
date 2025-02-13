@@ -9,6 +9,8 @@ export const computeCamSegmentParameters = (point1, point2) => {
     let v2 = parseFloat(point2.v);
     let a1 = parseFloat(point1.a);
     let a2 = parseFloat(point2.a);
+    let j1 = parseFloat(point1.j);
+    let j2 = parseFloat(point2.j);
 
     if (point2.type == "Straight")
     {
@@ -102,11 +104,132 @@ export const computeCamSegmentParameters = (point1, point2) => {
       }
       return result;
     }
+    if (point2.type == "Poly7")
+    {
+      var matrix = [
+        [
+          (35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-15 * Math.pow(x1, 3) * Math.pow(x2, 4) + 6 * Math.pow(x1, 2) * Math.pow(x2, 5) - x1 * Math.pow(x2, 6)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (5 * Math.pow(x1, 3) * Math.pow(x2, 4) - Math.pow(x1, 2) * Math.pow(x2, 5)) / (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          -Math.pow(x1, 3) * Math.pow(x2, 4) / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4)),
+          (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3)) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-Math.pow(x1, 6) * x2 + 6 * Math.pow(x1, 5) * Math.pow(x2, 2) - 15 * Math.pow(x1, 4) * Math.pow(x2, 3)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (Math.pow(x1, 5) * Math.pow(x2, 2) - 5 * Math.pow(x1, 4) * Math.pow(x2, 3)) / (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          -Math.pow(x1, 4) * Math.pow(x2, 3) / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4))
+        ],
+        [
+          -140 * Math.pow(x1, 3) * Math.pow(x2, 3) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (60 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (-10 * Math.pow(x1, 3) * Math.pow(x2, 3) - 5 * Math.pow(x1, 2) * Math.pow(x2, 4) + x1 * Math.pow(x2, 5)) / (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          (4 * Math.pow(x1, 3) * Math.pow(x2, 3) + 3 * Math.pow(x1, 2) * Math.pow(x2, 4)) / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4)),
+          140 * Math.pow(x1, 3) * Math.pow(x2, 3) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) + 60 * Math.pow(x1, 3) * Math.pow(x2, 3)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (-Math.pow(x1, 5) * x2 + 5 * Math.pow(x1, 4) * Math.pow(x2, 2) + 10 * Math.pow(x1, 3) * Math.pow(x2, 3)) / (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          (3 * Math.pow(x1, 4) * Math.pow(x2, 2) + 4 * Math.pow(x1, 3) * Math.pow(x2, 3)) / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4))
+        ],
+        [
+          (210 * Math.pow(x1, 3) * Math.pow(x2, 2) + 210 * Math.pow(x1, 2) * Math.pow(x2, 3)) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-90 * Math.pow(x1, 3) * Math.pow(x2, 2) - 120 * Math.pow(x1, 2) * Math.pow(x2, 3)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (30 * Math.pow(x1, 3) * Math.pow(x2, 2) + 50 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)) / (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          (-2 * Math.pow(x1, 3) * Math.pow(x2, 2) - 4 * Math.pow(x1, 2) * Math.pow(x2, 3) - x1 * Math.pow(x2, 4)) / (2 * Math.pow(x1, 4) - 8 * Math.pow(x1, 3) * x2 + 12 * Math.pow(x1, 2) * Math.pow(x2, 2) - 8 * x1 * Math.pow(x2, 3) + 2 * Math.pow(x2, 4)),
+          (-210 * Math.pow(x1, 3) * Math.pow(x2, 2) - 210 * Math.pow(x1, 2) * Math.pow(x2, 3)) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-120 * Math.pow(x1, 3) * Math.pow(x2, 2) - 90 * Math.pow(x1, 2) * Math.pow(x2, 3)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) - 50 * Math.pow(x1, 3) * Math.pow(x2, 2) - 30 * Math.pow(x1, 2) * Math.pow(x2, 3)) / (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          (-Math.pow(x1, 4) * x2 - 4 * Math.pow(x1, 3) * Math.pow(x2, 2) - 2 * Math.pow(x1, 2) * Math.pow(x2, 3)) / (2 * Math.pow(x1, 4) - 8 * Math.pow(x1, 3) * x2 + 12 * Math.pow(x1, 2) * Math.pow(x2, 2) - 8 * x1 * Math.pow(x2, 3) + 2 * Math.pow(x2, 4))
+        ],
+        [
+          (-140 * Math.pow(x1, 3) * x2 - 420 * Math.pow(x1, 2) * Math.pow(x2, 2) - 140 * x1 * Math.pow(x2, 3)) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (60 * Math.pow(x1, 3) * x2 + 210 * Math.pow(x1, 2) * Math.pow(x2, 2) + 80 * x1 * Math.pow(x2, 3)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (-10 * Math.pow(x1, 3) * x2 - 40 * Math.pow(x1, 2) * Math.pow(x2, 2) - 20 * x1 * Math.pow(x2, 3)) / (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          (4 * Math.pow(x1, 3) * x2 + 18 * Math.pow(x1, 2) * Math.pow(x2, 2) + 12 * x1 * Math.pow(x2, 3) + Math.pow(x2, 4)) / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4)),
+          (140 * Math.pow(x1, 3) * x2 + 420 * Math.pow(x1, 2) * Math.pow(x2, 2) + 140 * x1 * Math.pow(x2, 3)) / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (80 * Math.pow(x1, 3) * x2 + 210 * Math.pow(x1, 2) * Math.pow(x2, 2) + 60 * x1 * Math.pow(x2, 3)) / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (20 * Math.pow(x1, 3) * x2 + 40 * Math.pow(x1, 2) * Math.pow(x2, 2) + 10 * x1 * Math.pow(x2, 3)) / (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          (Math.pow(x1, 4) + 12 * Math.pow(x1, 3) * x2 + 18 * Math.pow(x1, 2) * Math.pow(x2, 2) + 4 * x1 * Math.pow(x2, 3)) / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4))
+        ],
+        [
+          (35 * Math.pow(x1, 3) + 315 * Math.pow(x1, 2) * x2 + 315 * x1 * Math.pow(x2, 2) + 35 * Math.pow(x2, 3)) / 
+          (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-15 * Math.pow(x1, 3) - 150 * Math.pow(x1, 2) * x2 - 165 * x1 * Math.pow(x2, 2) - 20 * Math.pow(x2, 3)) / 
+          (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (5 * Math.pow(x1, 3) + 55 * Math.pow(x1, 2) * x2 + 70 * x1 * Math.pow(x2, 2) + 10 * Math.pow(x2, 3)) / 
+          (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          (-Math.pow(x1, 3) - 12 * Math.pow(x1, 2) * x2 - 18 * x1 * Math.pow(x2, 2) - 4 * Math.pow(x2, 3)) / 
+          (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4)),
+          (-35 * Math.pow(x1, 3) - 315 * Math.pow(x1, 2) * x2 - 315 * x1 * Math.pow(x2, 2) - 35 * Math.pow(x2, 3)) / 
+          (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-20 * Math.pow(x1, 3) - 165 * Math.pow(x1, 2) * x2 - 150 * x1 * Math.pow(x2, 2) - 15 * Math.pow(x2, 3)) / 
+          (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (-10 * Math.pow(x1, 3) - 70 * Math.pow(x1, 2) * x2 - 55 * x1 * Math.pow(x2, 2) - 5 * Math.pow(x2, 3)) / 
+          (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          (-4 * Math.pow(x1, 3) - 18 * Math.pow(x1, 2) * x2 - 12 * x1 * Math.pow(x2, 2) - Math.pow(x2, 3)) / 
+          (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4))
+        ],
+        [
+          (-84 * Math.pow(x1, 2) - 252 * x1 * x2 - 84 * Math.pow(x2, 2)) / 
+          (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (39 * Math.pow(x1, 2) + 126 * x1 * x2 + 45 * Math.pow(x2, 2)) / 
+          (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (-7 * Math.pow(x1, 2) - 25 * x1 * x2 - 10 * Math.pow(x2, 2)) / 
+          (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          (Math.pow(x1, 2) + 4 * x1 * x2 + 2 * Math.pow(x2, 2)) / 
+          (2 * Math.pow(x1, 4) - 8 * Math.pow(x1, 3) * x2 + 12 * Math.pow(x1, 2) * Math.pow(x2, 2) - 8 * x1 * Math.pow(x2, 3) + 2 * Math.pow(x2, 4)),
+          (84 * Math.pow(x1, 2) + 252 * x1 * x2 + 84 * Math.pow(x2, 2)) / 
+          (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (45 * Math.pow(x1, 2) + 126 * x1 * x2 + 39 * Math.pow(x2, 2)) / 
+          (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (10 * Math.pow(x1, 2) + 25 * x1 * x2 + 7 * Math.pow(x2, 2)) / 
+          (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          (2 * Math.pow(x1, 2) + 4 * x1 * x2 + Math.pow(x2, 2)) / 
+          (2 * Math.pow(x1, 4) - 8 * Math.pow(x1, 3) * x2 + 12 * Math.pow(x1, 2) * Math.pow(x2, 2) - 8 * x1 * Math.pow(x2, 3) + 2 * Math.pow(x2, 4))
+        ],
+        [
+          (70 * x1 + 70 * x2) / 
+          (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-34 * x1 - 36 * x2) / 
+          (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (13 * x1 + 15 * x2) / 
+          (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          (-3 * x1 - 4 * x2) / 
+          (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4)),
+          (-70 * x1 - 70 * x2) / 
+          (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          (-36 * x1 - 34 * x2) / 
+          (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          (-15 * x1 - 13 * x2) / 
+          (2 * Math.pow(x1, 5) - 10 * Math.pow(x1, 4) * x2 + 20 * Math.pow(x1, 3) * Math.pow(x2, 2) - 20 * Math.pow(x1, 2) * Math.pow(x2, 3) + 10 * x1 * Math.pow(x2, 4) - 2 * Math.pow(x2, 5)),
+          (-4 * x1 - 3 * x2) / 
+          (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4))
+        ],
+        [
+          -20 / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          10 / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          -2 / (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          1 / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4)),
+          20 / (Math.pow(x1, 7) - 7 * Math.pow(x1, 6) * x2 + 21 * Math.pow(x1, 5) * Math.pow(x2, 2) - 35 * Math.pow(x1, 4) * Math.pow(x2, 3) + 35 * Math.pow(x1, 3) * Math.pow(x2, 4) - 21 * Math.pow(x1, 2) * Math.pow(x2, 5) + 7 * x1 * Math.pow(x2, 6) - Math.pow(x2, 7)),
+          10 / (Math.pow(x1, 6) - 6 * Math.pow(x1, 5) * x2 + 15 * Math.pow(x1, 4) * Math.pow(x2, 2) - 20 * Math.pow(x1, 3) * Math.pow(x2, 3) + 15 * Math.pow(x1, 2) * Math.pow(x2, 4) - 6 * x1 * Math.pow(x2, 5) + Math.pow(x2, 6)),
+          2 / (Math.pow(x1, 5) - 5 * Math.pow(x1, 4) * x2 + 10 * Math.pow(x1, 3) * Math.pow(x2, 2) - 10 * Math.pow(x1, 2) * Math.pow(x2, 3) + 5 * x1 * Math.pow(x2, 4) - Math.pow(x2, 5)),
+          1 / (6 * Math.pow(x1, 4) - 24 * Math.pow(x1, 3) * x2 + 36 * Math.pow(x1, 2) * Math.pow(x2, 2) - 24 * x1 * Math.pow(x2, 3) + 6 * Math.pow(x2, 4))
+        ]
+      ]
+      var vector = [y1, v1, a1, j1, y2, v2, a2, j2]
+
+      var result = [0,0,0,0,0,0,0,0];
+      for (var i=0; i<8; i++)
+      {
+        console.log(i)
+        for (var j=0; j<8;j++)
+        {
+          result[i] += matrix[i][j]*vector[j];
+        }
+      }
+      return result;
+    }
   }
 
   export const computeCamPosition = (x, camSegmentParameters) => {
     let result = 0;
-    for (var i = 0; i < 6; i++)
+    for (var i = 0; i < camSegmentParameters.length; i++)
     {
         result += camSegmentParameters[i]*Math.pow(x,i);
     }
@@ -115,7 +238,7 @@ export const computeCamSegmentParameters = (point1, point2) => {
 
 export const computeCamVelocity = (x, camSegmentParameters) => {
     let result = 0;
-    for (var i = 1; i < 6; i++)
+    for (var i = 1; i < camSegmentParameters.length; i++)
     {
         result += i*camSegmentParameters[i]*Math.pow(x,i-1);
     }
@@ -123,7 +246,7 @@ export const computeCamVelocity = (x, camSegmentParameters) => {
 }
 export const computeCamAcceleration = (x, camSegmentParameters) => {
     let result = 0;
-    for (var i = 2; i < 6; i++)
+    for (var i = 2; i < camSegmentParameters.length; i++)
     {
         result += i*(i-1)*camSegmentParameters[i]*Math.pow(x,i-2);
     }

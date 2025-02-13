@@ -82,15 +82,25 @@ const Mechanics = ({ mechanicsState, camData, graphData }) => {
         }
         else
         {
+            let totalInertia = 0
+            let rmsTorque = 0
+            let maxTorque = 0
             if (movementType === 'Rotative')
             {
                 totalInertia = motorMass * linearDevelopment * linearDevelopment / 12;
             }
             else
             {
-                totalInertia = motorMass + loadMass;
+                totalInertia = loadMass + motorMass;
+                console.log(totalInertia)
+                let motorSideAcceleration = camData['a'].map(x => x * masterSetpointVelocity * masterSetpointVelocity);
+                let torque = motorSideAcceleration.map(x => x * totalInertia);
+                rmsTorque = Math.sqrt(torque.reduce((acc, val) => acc + val * val, 0) / torque.length);
+                maxTorque = Math.max(...torque.map(val => Math.abs(val)));
             }
-            text += `Total Inertia: ${totalInertia.toFixed(2)} Kg<br />`;
+            text += `Total Inertia: ${totalInertia} Kg<br />`;
+            text += `RMS Force: ${rmsTorque.toFixed(2)} N<br />`;
+            text += `Max Force: ${maxTorque.toFixed(2)} N<br />`;
         }
 
         setResultText(text);

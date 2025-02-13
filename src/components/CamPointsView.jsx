@@ -39,6 +39,7 @@ const CamPointsView = (props) => {
       y : 0,
       v : 0,
       a : 0,
+      j : 0,
       type : 'Poly5',
     } 
   }

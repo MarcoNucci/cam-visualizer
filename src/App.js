@@ -4,6 +4,7 @@ import CamResults from './components/CamResults'
 import useMechanicsState from './state/MechanicsState'
 import {computeCamSegmentParameters, computeCamPosition, computeCamVelocity, computeCamAcceleration, solveZeroVelocity} from './functions/CamComputation'
 import {createAnimation} from './functions/Animation'
+import SaveLoad from './components/SaveLoad'
 import nextId from "react-id-generator"
 
 
@@ -19,6 +20,7 @@ function App() {
       y : 0,
       v : 0,
       a : 0,
+      j : 0,
       type : 'Straight',
     },
     {
@@ -27,6 +29,7 @@ function App() {
       y : 360,
       v : 0,
       a : 0,
+      j : 0,
       type : 'Poly5',
     },
   ])
@@ -103,7 +106,6 @@ function App() {
       createAnimation(posData,numberOfSteps);
   }
 
-  
   function ComputeCam()
   {
       setIsComputeRequested(true);
@@ -126,11 +128,39 @@ function App() {
       computeGraphData((camPoints[camPoints.length-1].x - camPoints[0].x)/numberOfSteps, computeCamParameters());
   }
 
+  function saveState()
+  {
+    const json = JSON.stringify(camPoints);
+    const blob = new Blob([json], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = 'cam.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function loadState(event)
+  {
+    setCamPoints([])
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const json = e.target.result;
+      console.log(json)
+      const loadedState = JSON.parse(json);
+      setCamPoints(loadedState);
+    };
+    reader.readAsText(file);
+  }
+
   return (
     <div className="App">
       <CamPointsView camPoints = {camPoints} setCamPoints = {setCamPoints} ComputeCam = {ComputeCam}/>
       <CamResults isComputeRequested = {isComputeRequested} computeErrorMessage = {computeErrorMessage} 
           graphData = {graphData} camData = {camData} camPoints = {camPoints} camParameters = {camParameters} mechanicsState={mechanicsState} />    
+      <SaveLoad saveState={saveState} loadState={loadState}/>
     </div>
   );
 }

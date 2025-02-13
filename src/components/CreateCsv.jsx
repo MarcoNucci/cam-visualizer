@@ -3,6 +3,7 @@ import React from 'react';
 const CreateCsv = ({ camData }) => {
     const generateCsv = () => {
         let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "sep=,\n";
         csvContent += "MasterPosition,SlavePosition,SlaveVelocity,SlaveAcceleration\n";
 
         for (let i = 0; i < camData.x.length; i++) {
