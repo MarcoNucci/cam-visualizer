@@ -37,18 +37,24 @@ const Mechanics = ({ mechanicsState, camData, graphData }) => {
         let totalInertia = 0
         let rmsTorque = 0
         let maxTorque = 0
+        let maxVel = 0
         if (actuationType === 'Rotative') 
         {
             if (movementType === 'Rotative')
             {
-                totalInertia = motorInertia + loadInertia / (gearRatio * gearRatio);
+                totalInertia = parseFloat(motorInertia) + parseFloat(loadInertia) / (gearRatio * gearRatio);
                 let motorSideAcceleration = camData['a'].map(x => x * masterSetpointVelocity * masterSetpointVelocity * gearRatio);
+                let motorSideVelocity = camData['v'].map(x => x * masterSetpointVelocity * gearRatio);                
                 if (unitOfMeasure === 'deg')
                     motorSideAcceleration = motorSideAcceleration.map(x => x * Math.PI / 180);
+                if (unitOfMeasure === 'deg')
+                    motorSideVelocity = motorSideVelocity.map(x => x * Math.PI / 180);
+                motorSideVelocity = motorSideVelocity.map(x => x * 60 / (2 * Math.PI)); // Convert to RPM
                 
                 let torque = motorSideAcceleration.map(x => x * totalInertia);
                 rmsTorque = Math.sqrt(torque.reduce((acc, val) => acc + val * val, 0) / torque.length);
                 maxTorque = Math.max(...torque.map(val => Math.abs(val)));
+                maxVel = Math.max(...motorSideVelocity.map(val => Math.abs(val)));
 
             }
             if (movementType === 'Linear')
@@ -60,25 +66,41 @@ const Mechanics = ({ mechanicsState, camData, graphData }) => {
                         radius = linearDevelopment / (2 * Math.PI);
                         break;
                     case 'mm':
-                        radius = linearDevelopment / (2 * Math.PI) / 1000.0;
+                        radius = linearDevelopment / (2 * Math.PI);
+                        radius = radius / 1000.0;
+                        break;
                     case 'inch':
                         radius = linearDevelopment / (2 * Math.PI) / 39.3701;
+                        break;
                 }
-                totalInertia = motorInertia + loadMass * radius * radius / (gearRatio * gearRatio);
+                totalInertia = parseFloat(motorInertia) + parseFloat(loadMass) * radius * radius / (gearRatio * gearRatio);
                 let motorSideAcceleration = camData['a'].map(x => x * masterSetpointVelocity * masterSetpointVelocity * gearRatio / radius);
+                let motorSideVelocity = camData['v'].map(x => x * masterSetpointVelocity * gearRatio / radius);
+                motorSideVelocity = motorSideVelocity.map(x => x * 60 / (2 * Math.PI)); // Convert to RPM
                 
                 if (unitOfMeasure === 'mm')
+                {
                     motorSideAcceleration = motorSideAcceleration.map(x => x / 1000.0);
+                    motorSideVelocity = motorSideVelocity.map(x => x / 1000.0);
+                }
                 if (unitOfMeasure === 'inch')
-                    motorSideAcceleration = motorSideAcceleration.map(x => x /39.3701);
+                {
+                    motorSideAcceleration = motorSideAcceleration.map(x => x / 1000.0);
+                    motorSideVelocity = motorSideVelocity.map(x => x /39.3701);
+                }
+                
+                console.log(totalInertia);
+                console.log(Math.max(...motorSideAcceleration.map(val => Math.abs(val))));
                 
                 let torque = motorSideAcceleration.map(x => x * totalInertia);
                 rmsTorque = Math.sqrt(torque.reduce((acc, val) => acc + val * val, 0) / torque.length);
                 maxTorque = Math.max(...torque.map(val => Math.abs(val)));
+                maxVel = Math.max(...motorSideVelocity.map(val => Math.abs(val)));
             }
             text += `Total Inertia: ${totalInertia.toFixed(2)} Kg*m²<br />`;
             text += `RMS Torque: ${rmsTorque.toFixed(2)} Nm<br />`;
             text += `Max Torque: ${maxTorque.toFixed(2)} Nm<br />`;
+            text += `Max Motor Velocity: ${maxVel.toFixed(2)} RPM (${(maxVel*(2 * Math.PI)/60).toFixed(2)} rad/s)<br />`;
         }
         else
         {
